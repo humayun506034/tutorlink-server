@@ -1,9 +1,17 @@
 import { ApplyNeedTutorPost } from '../applyNeedTutorPost/applyNeedTutorPost.model';
+import NeedTutor from '../needTutor/needTutor.model';
 import { Order } from './payment.model';
 
 const paymentSuccessfullIntoDB = async (id: string) => {
   // console.log(id);
 
+  const findPost = await ApplyNeedTutorPost.findById(id);
+  // console.log(findPost);
+
+  await NeedTutor.findByIdAndUpdate(
+    { _id: findPost?.tutionId },
+    { paidStatus: 'Done' },
+  );
   const result = await ApplyNeedTutorPost.findByIdAndUpdate(id, {
     paymentStatus: 'Done',
   });

@@ -6,4 +6,5 @@ export type TApplyNeedTutorPost = {
   tutorId: Types.ObjectId;
   selectStatus?: string;
   paymentStatus?: string;
+  isDeleted?: boolean;
 };

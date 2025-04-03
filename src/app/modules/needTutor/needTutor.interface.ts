@@ -16,4 +16,7 @@ export type TNeedTutor = {
   teacherGender: string;
   daysPerWeek: string;
   salaryRange: string;
+  selectedStatus?: string;
+  paidStatus?: string;
+  isDeleted?: boolean;
 };

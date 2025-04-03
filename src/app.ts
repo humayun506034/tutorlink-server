@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['https://tutorlink-online.vercel.app'],
+    origin: ['https://tutorlink-online.vercel.app','http://localhost:3000'],
     credentials: true,
   }),
 );

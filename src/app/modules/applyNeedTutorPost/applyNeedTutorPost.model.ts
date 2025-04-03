@@ -20,12 +20,17 @@ const ApplyNeedTutorPostSchema = new Schema<TApplyNeedTutorPost>({
   selectStatus: {
     type: String,
     required: false,
-    default:"Not_Selected"
+    default: 'Not_Selected',
   },
   paymentStatus: {
     type: String,
     required: false,
-    default:"Not_Pay"
+    default: 'Not_Pay',
+  },
+  isDeleted: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 });
 

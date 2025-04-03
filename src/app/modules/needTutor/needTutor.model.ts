@@ -70,6 +70,22 @@ const NeedTutorSchema = new Schema<TNeedTutor>({
     type: String,
     required: true,
   },
+  selectedStatus: {
+    type: String,
+    required: false,
+    default: 'Not_Selected',
+  },
+  
+  paidStatus: {
+    type: String,
+    required: false,
+    default: 'Not_Pay',
+  },
+  isDeleted: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 
 const NeedTutor = model('NeedTutor', NeedTutorSchema);

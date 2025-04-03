@@ -12,8 +12,6 @@ const tutoringPaymentFailed = catchAsync(async (req, res) => {
   res.redirect(`https://tutorlink-online.vercel.app/payment-failed/${req.params.productId}`);
 });
 
-
-
 export const paymentController = {
   tutoringPaymentSuccess,
   tutoringPaymentFailed,

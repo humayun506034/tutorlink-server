@@ -8,12 +8,15 @@ const paymentSuccess = catchAsync(async (req, res) => {
   // console.log('Transaction ID:', tranId);
   await paymentService.paymentSuccessfullIntoDB(productId);
 
-  res.redirect(`https://tutorlink-online.vercel.app/payment-successful/${req.params.productId}`);
+  res.redirect(
+    `https://tutorlink-online.vercel.app/payment-successful/${req.params.productId}`,
+  );
 });
 const paymentFailed = catchAsync(async (req, res) => {
-  res.redirect(`https://tutorlink-online.vercel.app/payment-failed/${req.params.productId}`);
+  res.redirect(
+    `https://tutorlink-online.vercel.app/payment-failed/${req.params.productId}`,
+  );
 });
-
 const getAdminOrderData = catchAsync(async (req, res) => {
   // console.log(req.body);
   const result = await paymentService.getAdminOrderDataFromDB(req.body.email);
@@ -74,5 +77,5 @@ export const paymentController = {
   getUserOrderData,
   acceptOrder,
   cencelOrder,
-  DeleteOrder
+  DeleteOrder,
 };

@@ -16,9 +16,16 @@ router.get(
   ApplyTutoringController.getStudentApplyForApplyTutoringPost,
 );
 
-// router.get(
-//   '/get-student-enroll-course/:id',
-//   ApplyTutorPostController.getStudentEnrollCourse,
-// );
+router.get(
+  '/get-student-enroll-course/:id',
+  ApplyTutoringController.getStudentEnrollTutoringCourse,
+);
+
+
+
+router.get(
+  '/get-tutor-sell-course/:id',
+  ApplyTutoringController.getTutorSellApplyTutoringCourse,
+);
 
 export const applyTutoringRoutes = router;

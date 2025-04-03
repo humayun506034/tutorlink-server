@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { TNeedTutor } from './needTutor.interface';
 import NeedTutor from './needTutor.model';
+import { ApplyNeedTutorPost } from '../applyNeedTutorPost/applyNeedTutorPost.model';
 
 const addNeedTutorPostIntoDB = async (payload: TNeedTutor) => {
   const result = await NeedTutor.create(payload);
@@ -8,7 +9,9 @@ const addNeedTutorPostIntoDB = async (payload: TNeedTutor) => {
 };
 
 const getAllNeedTutorPostFromDB = async () => {
-  const result = await NeedTutor.find().populate('studentId');
+  const result = await NeedTutor.find({ isDeleted: false }).populate(
+    'studentId',
+  );
   return result;
 };
 const getOneNeedTutorPostFromDB = async (id: string) => {
@@ -23,12 +26,26 @@ const getOneNeedTutorPostFromDB = async (id: string) => {
 const singleStudentNeedTutorPostFromDB = async (id: string) => {
   const result = await NeedTutor.find({
     studentId: new mongoose.Types.ObjectId(id),
+    isDeleted: false, // ফিল্টার এখানে যোগ করতে হবে
   });
   return result;
 };
 
 const deleteTutorNeedPostFromDB = async (id: string) => {
-  const result = await NeedTutor.findByIdAndDelete(id);
+  // console.log(id);
+
+  await ApplyNeedTutorPost.findOneAndUpdate({
+    tutionId: new mongoose.Types.ObjectId(id),
+  },{isDeleted:true},{new:true});
+  // console.log(findProduct);
+
+  // console.log(findProduct);
+
+
+
+  // console.log(updatedProduct);
+
+  const result = await NeedTutor.findByIdAndUpdate(id, { isDeleted: true });
   return result;
 };
 

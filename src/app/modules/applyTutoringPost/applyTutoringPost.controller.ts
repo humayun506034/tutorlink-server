@@ -84,21 +84,35 @@ const getStudentApplyForApplyTutoringPost = catchAsync(async (req, res) => {
     data: result,
   });
 });
-// const getStudentEnrollCourse = catchAsync(async (req, res) => {
-//   const result = await ApplyNeedTutorPostService.getStudentEnrollCourseFromDB(
-//     req.params.id,
-//   );
-//   sendResponse(res, {
-//     statusCode: StatusCodes.OK,
-//     success: true,
-//     message: 'Student enroll courses retrived successfully',
-//     data: result,
-//   });
-// });
+const getStudentEnrollTutoringCourse = catchAsync(async (req, res) => {
+  const result = await ApplyTutoringPostService.getStudentEnrollTutoringCourseFromDB(
+    req.params.id,
+  );
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Student enroll courses retrived successfully',
+    data: result,
+  });
+});
 
+
+const getTutorSellApplyTutoringCourse = catchAsync(async (req, res) => {
+  const result = await ApplyTutoringPostService.getTutorSellApplyTutoringCourseFromDB(
+    req.params.id,
+  );
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Tutor Course Info retrived successfully',
+    data: result,
+  });
+});
 export const ApplyTutoringController = {
   applyTutoringPost,
   getTutorTutoringApply,
   setStudentSelected,
-  getStudentApplyForApplyTutoringPost
+  getStudentApplyForApplyTutoringPost,
+  getStudentEnrollTutoringCourse,
+  getTutorSellApplyTutoringCourse
 };

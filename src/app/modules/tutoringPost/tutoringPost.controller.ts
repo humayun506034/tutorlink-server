@@ -45,20 +45,21 @@ const singleTutorTutoringPost = catchAsync(async (req, res) => {
     data: result,
   });
 });
-// const deleteNeedTutorPost = catchAsync(async (req, res) => {
-//   // console.log(req.body);
-//   const result = await NeedTutorService.deleteTutorNeedPostFromDB(req.body.id);
-//   sendResponse(res, {
-//     statusCode: StatusCodes.OK,
-//     success: true,
-//     message: 'Need Tutor Post deleted successfully',
-//     data: result,
-//   });
-// });
+const deleteTutoringPost = catchAsync(async (req, res) => {
+  // console.log(req.body);
+  const result = await TutoringPostService.deleteTutoringPostFromDB(req.body.id);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Tutoring Post deleted successfully',
+    data: result,
+  });
+});
 
 export const TutoringPostController = {
   addTutoringPost,
   getAllTutoringPost,
   getOneTutoringPost,
-  singleTutorTutoringPost
+  singleTutorTutoringPost,
+  deleteTutoringPost
 };

@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
 import { ApplyNeedTutorPost } from './applyNeedTutorPost.model';
 import { TApplyNeedTutorPost } from './applyNeedTutorPost.interface';
+import NeedTutor from '../needTutor/needTutor.model';
 
 const ApplyNeedTutorPostIntoDB = async (payload: TApplyNeedTutorPost) => {
   // console.log(payload);
 
   const findPreviewsData = await ApplyNeedTutorPost.find({
-    studentId: payload?.studentId,
+    tutorId: payload?.tutorId,
     tutionId: payload?.tutionId,
   });
 
-  // console.log(findPreviewsData);
 
   if (findPreviewsData.length > 0) {
     throw new Error('You are already apply here...');
@@ -20,7 +20,7 @@ const ApplyNeedTutorPostIntoDB = async (payload: TApplyNeedTutorPost) => {
 };
 
 const getAllApplyNeedTutorPostFromDB = async () => {
-  const result = await ApplyNeedTutorPost.find()
+  const result = await ApplyNeedTutorPost.find({isDeleted:false})
     .populate('studentId')
     .populate('tutorId')
     .populate('tutionId');
@@ -43,6 +43,13 @@ const setSelectedTutorIntoDB = async (
 ) => {
   // console.log("service",id);
   //  console.log(id,payload);
+  const findProduct = await ApplyNeedTutorPost.findById(id);
+    // console.log(findProduct);
+  
+    await NeedTutor.findByIdAndUpdate(
+      { _id: findProduct?.tutionId },
+      { selectedStatus: 'Selected' },
+    );
   const result = await ApplyNeedTutorPost.findByIdAndUpdate(id, payload);
   return result;
 };
@@ -51,6 +58,7 @@ const getTutorApplyPostForNeedTutorPostFromDB = async (id: string) => {
   // console.log(id);
   const result = await ApplyNeedTutorPost.find({
     tutorId: new mongoose.Types.ObjectId(id),
+    isDeleted:false
   })
     .populate('studentId')
     .populate('tutorId')
@@ -69,6 +77,18 @@ const getStudentEnrollCourseFromDB = async (id: string) => {
   return result;
 };
 
+const getTutorSellNeedTutorCourseFromDB = async (id: string) => {
+  const result = await ApplyNeedTutorPost.find({
+    tutorId: new mongoose.Types.ObjectId(id),
+    paymentStatus: 'Done',
+  })
+    .populate('studentId')
+    .populate('tutorId')
+    .populate('tutionId');
+  return result;
+};
+
+
 export const ApplyNeedTutorPostService = {
   ApplyNeedTutorPostIntoDB,
   getAllApplyNeedTutorPostFromDB,
@@ -76,4 +96,5 @@ export const ApplyNeedTutorPostService = {
   setSelectedTutorIntoDB,
   getTutorApplyPostForNeedTutorPostFromDB,
   getStudentEnrollCourseFromDB,
+  getTutorSellNeedTutorCourseFromDB
 };
